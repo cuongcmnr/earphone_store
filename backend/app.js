@@ -5,6 +5,7 @@ require("./db");
 const productRoute = require("./routes/product");
 const authRoute = require("./routes/auth");
 const adminRoute = require("./routes/admin");
+const reviewRoute = require("./routes/review");
 const path = require("path");
 /************ MIDDLEVARES *************/
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 app.use("/api/product", productRoute);
 app.use("/api/user", authRoute);
 app.use("/api/admin", admin);
+app.use("/api/review", review);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("../frontend/build"));
 
