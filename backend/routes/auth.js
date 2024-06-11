@@ -46,11 +46,19 @@ router.post("/login", (req, res) => {
       return res.status(400).send({ msg: "user does not exist" });
     }
     if (hashPassword(req.body.password) === user.Password) {
+      req.session.user = user;
       res.status(200).send({ user: user });
     } else {
       return res.status(400).send("email or password wrong");
     }
   });
 });
-
+router.post("/logout", (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.status(200).send({ msg: "Logged out" });
+  });
+});
 module.exports = router;

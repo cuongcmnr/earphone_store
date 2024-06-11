@@ -2,15 +2,11 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// middleware to check if the user is logged in
 function isLoggedIn(req, res, next) {
-  // assuming you have some way of checking if the user is logged in, e.g. from a JWT
-  const user = getCurrentUser(req);
-
+  const user = req.session.user;
   if (!user) {
     return res.status(401).send('You must be logged in to do that');
   }
-
   next();
 }
 

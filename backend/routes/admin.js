@@ -3,16 +3,16 @@ const router = express.Router();
 const db = require('../db');
 
 function isAdmin(req, res, next) {
-    const user = getCurrentUser(req);
-    db.get("SELECT Role FROM Users WHERE Id = ?", [user.id], (err, row) => {
-      if (err) {
-        return res.status(500).send(err.message);
-      }
-      if (!row || row.Role !== 'admin') {
-        return res.status(403).send('Access denied');
-      }
-      next();
-    });
+  const user = req.session.user;
+  db.get("SELECT Role FROM Users WHERE Id = ?", [user.id], (err, row) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    if (!row || row.Role !== 'admin') {
+      return res.status(403).send('Access denied');
+    }
+    next();
+  });
 }
 
 router.get('/views', isAdmin, (req, res) => {
