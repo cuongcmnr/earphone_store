@@ -21,7 +21,7 @@ router.get('/reviews/:productId', (req, res) => {
 
 router.post('/reviews', isLoggedIn, (req, res) => {
   const { productId, content, rating } = req.body;
-  const user = getCurrentUser(req);
+  const user = req.session.user;
 
   db.run("INSERT INTO Reviews (ProductId, UserId, Content, Rating) VALUES (?, ?, ?, ?)", [productId, user.id, content, rating], function(err) {
     if (err) {
