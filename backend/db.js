@@ -1,4 +1,22 @@
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
+
+const dbPath = './db.sqlite';
+const backupPath = './db_backup.sqlite';
+
+if (fs.existsSync(dbPath)) {
+  fs.copyFileSync(dbPath, backupPath);
+  console.log('Database has been backed up to db_backup.sqlite');
+}
+else {
+  if (fs.existsSync(backupPath)) {
+    fs.renameSync(backupPath, dbPath);
+    console.log('Backup file has been renamed to db.sqlite');
+  }
+  else {
+    console.log('No database file found, a new one will be created.');
+  }
+}
 
 let db = new sqlite3.Database('./db.sqlite', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
   if (err) {
