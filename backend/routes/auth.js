@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const crypto = require('crypto');
-const { registerValidation, loginValidation } = require("../validation");
+const { registerValidation, loginValidation } = require("./validation");
 
 function hashPassword(password) {
   const hash = crypto.createHash('sha256');
