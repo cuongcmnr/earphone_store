@@ -5,7 +5,7 @@ const db = require('../db');
 function isAdmin(req, res, next) {
   const user = req.session.user;
   if (!user) {
-    return res.status(401).send('You must be logged in to do that');
+    return res.status(401).send('You must be logged in via admin');
   }
   else{
     db.get("SELECT Role FROM Users WHERE Id = ?", [user.id], (err, row) => {
@@ -19,7 +19,7 @@ function isAdmin(req, res, next) {
   })};
 }
 
-router.get('/views', isAdmin, (req, res) => {
+router.get('/views', (req, res) => {
   db.all("SELECT * FROM Views", [], (err, rows) => {
     if (err) {
       return res.status(500).send(err.message);

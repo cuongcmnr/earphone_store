@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
       return res.status(400).send("user exist");
     }
     const hashedPassword = hashPassword(req.body.password);
-    const role = req.body.role || 'customer'; // default to 'customer' if no role is provided
+    const role = req.body.role || 'user';
     db.run("INSERT INTO Users (Name, Email, Password, Role) VALUES (?, ?, ?, ?)", [req.body.name, req.body.email, hashedPassword, role], function(err) {
       if (err) {
         return res.status(500).send(err.message);
