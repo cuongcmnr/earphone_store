@@ -4,15 +4,19 @@ const db = require('../db');
 
 function isAdmin(req, res, next) {
   const user = req.session.user;
-  db.get("SELECT Role FROM Users WHERE Id = ?", [user.id], (err, row) => {
-    if (err) {
-      return res.status(500).send(err.message);
-    }
-    if (!row || row.Role !== 'admin') {
-      return res.status(403).send('Access denied');
-    }
-    next();
-  });
+  if (!user) {
+    return res.status(401).send('You must be logged in to do that');
+  }
+  else{
+    db.get("SELECT Role FROM Users WHERE Id = ?", [user.id], (err, row) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      if (!row || row.Role !== 'admin') {
+        return res.status(403).send('Access denied');
+      }
+      else{next()};
+  })};
 }
 
 router.get('/views', isAdmin, (req, res) => {
