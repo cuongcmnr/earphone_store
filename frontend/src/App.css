@@ -1,0 +1,17 @@
+.App {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: opacity 0.5s ease-in-out; /* Add transition for smooth opacity change */
+}
+
+.App.active {
+  opacity: 0.5;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
