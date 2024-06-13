@@ -1,7 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const isLoggedIn = require('./review').isLoggedIn;
+function isLoggedIn(req, res, next) {
+  const user = req.session.user;
+  if (!user) {
+    return res.status(401).send('You must be logged in to do that');
+  }
+  next();
+}
 
 router.get("/product", (req, res) => {
   db.all("SELECT * FROM Products", (err, products) => {
