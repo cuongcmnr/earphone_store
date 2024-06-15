@@ -1,13 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-function isLoggedIn(req, res, next) {
-  const user = req.session.user;
-  if (!user) {
-    return res.status(401).send('You must be logged in to do that');
-  }
-  next();
-}
+const { isLoggedIn } = require("./validation");
 
 router.get("/product", (req, res) => {
   db.all("SELECT * FROM Products", (err, products) => {
@@ -18,9 +12,9 @@ router.get("/product", (req, res) => {
   });
 });
 
-router.get("/product/search/:name", (req, res) => {
-  const name = req.params.name;
-  db.all("SELECT * FROM Products WHERE Name LIKE ?", [`%${name}%`], (err, products) => {
+router.get("/product/search/:Name", (req, res) => {
+  const Name = req.params.Name;
+  db.all("SELECT * FROM Products WHERE Name LIKE ?", [`%${Name}%`], (err, products) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -56,9 +50,9 @@ router.post("/cart", isLoggedIn, (req, res) => {
   });
 });
 
-router.delete("/cart/:id", isLoggedIn, (req, res) => {
-  const { id } = req.params;
-  db.run("DELETE FROM Cart WHERE Id = ?", [id], function(err) {
+router.delete("/cart/:Id", isLoggedIn, (req, res) => {
+  const { Id } = req.params;
+  db.run("DELETE FROM Cart WHERE Id = ?", [Id], function(err) {
     if (err) {
       return res.status(500).send(err.message);
     }

@@ -4,9 +4,9 @@ const db = require("../db");
 const crypto = require('crypto');
 const { registerValidation, loginValidation } = require("./validation");
 
-function hashPassword(password) {
+function hashPassword(Password) {
   const hash = crypto.createHash('sha256');
-  hash.update(password);
+  hash.update(Password);
   return hash.digest('hex');
 }
 
@@ -15,16 +15,16 @@ router.post("/register", (req, res) => {
   if (validation.error) {
     return res.status(400).send(validation.error);
   }
-  db.get("SELECT * FROM Users WHERE Email = ?", [req.body.email], (err, user) => {
+  db.get("SELECT * FROM Users WHERE Email = ?", [req.body.Email], (err, user) => {
     if (err) {
       return res.status(500).send(err.message);
     }
     if (user) {
       return res.status(400).send("user exist");
     }
-    const hashedPassword = hashPassword(req.body.password);
-    const role = req.body.role || 'user';
-    db.run("INSERT INTO Users (Name, Email, Password, Role) VALUES (?, ?, ?, ?)", [req.body.name, req.body.email, hashedPassword, role], function(err) {
+    const hashedPassword = hashPassword(req.body.Password);
+    const role = req.body.Role || 0;
+    db.run("INSERT INTO Users (Name, Email, Password, Role) VALUES (?, ?, ?, ?)", [req.body.Name, req.body.Email, hashedPassword, role], function(err) {
       if (err) {
         return res.status(500).send(err.message);
       }
@@ -38,18 +38,18 @@ router.post("/login", (req, res) => {
   if (validation.error) {
     return res.status(400).send(validation.error);
   }
-  db.get("SELECT * FROM Users WHERE Email = ?", [req.body.email], (err, user) => {
+  db.get("SELECT * FROM Users WHERE Email = ?", [req.body.Email], (err, user) => {
     if (err) {
       return res.status(500).send(err.message);
     }
     if (!user) {
       return res.status(400).send({ msg: "user does not exist" });
     }
-    if (hashPassword(req.body.password) === user.Password) {
+    if (hashPassword(req.body.Password) === user.Password) {
       req.session.user = user;
       res.status(200).send({ user: user });
     } else {
-      return res.status(400).send("email or password wrong");
+      return res.status(400).send("Email or Password wrong");
     }
   });
 });
@@ -60,5 +60,12 @@ router.post("/logout", (req, res) => {
     }
     res.status(200).send({ msg: "Logged out" });
   });
+});
+router.get("/whoami", (req, res) => {
+  if (req.session && req.session.user) {
+    res.status(200).send(req.session.user);
+  } else {
+    res.status(200).send("No user is currently logged in.");
+  }
 });
 module.exports = router;
