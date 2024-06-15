@@ -34,15 +34,6 @@ router.get('/views', (req, res) => {
   });
 });
 
-router.get('/brands', isAdmin, (req, res) => {
-  db.all("SELECT * FROM Category", [], (err, rows) => {
-    if (err) {
-      return res.status(500).send(err.message);
-    }
-    res.send(rows);
-  });
-});
-
 router.post('/brands', isAdmin, (req, res) => {
   const { Name } = req.body;
   db.run("INSERT INTO Brand (Name) VALUES (?)", [Name], function(err) {
@@ -70,14 +61,6 @@ router.delete('/brands/:Id', isAdmin, (req, res) => {
     }
     res.send({ rowsAffected: this.changes });
   });
-});
-router.get('/categories', isAdmin, (req, res) => {
-    db.all("SELECT * FROM Category", [], (err, rows) => {
-      if (err) {
-        return res.status(500).send(err.message);
-      }
-      res.send(rows);
-    });
 });
 
 router.post('/categories', isAdmin, (req, res) => {
