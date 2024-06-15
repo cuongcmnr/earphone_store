@@ -103,7 +103,7 @@ router.get('/products', isAdmin, (req, res) => {
 
 router.post('/products', isAdmin, (req, res) => {
     const { Name, ImageUrl, CategoryId, BrandId, Description, Price } = req.body;
-    db.run("INSERT INTO Products (Name, ImageUrl, CategoryId, BrandId, Description, Price) VALUES (?, ?, ?, ?)", [Name, ImageUrl, CategoryId, BrandId, Description, Price], function(err) {
+    db.run("INSERT INTO Products (Name, ImageUrl, CategoryId, BrandId, Description, Price) VALUES (?, ?, ?, ?, ?, ?)", [Name, ImageUrl, CategoryId, BrandId, Description, Price], function(err) {
       if (err) {
         return res.status(500).send(err.message);
       }

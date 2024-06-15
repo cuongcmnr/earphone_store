@@ -91,6 +91,6 @@ db.run(`CREATE TABLE IF NOT EXISTS Contact (
   Cusname TEXT NOT NULL,
   Email TEXT,
   Feedback TEXT NOT NULL,
-  Date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  Date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 )`);
 module.exports = db;

@@ -4,39 +4,47 @@ const db = require("../db");
 const { isLoggedIn } = require("./validation");
 
 router.get("/product", (req, res) => {
-  db.all("SELECT * FROM Products", (err, products) => {
+  db.all("SELECT * FROM Products", (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json(products);
+    res.json(rows);
   });
 });
 
 router.get("/product/search/:Name", (req, res) => {
   const Name = req.params.Name;
-  db.all("SELECT * FROM Products WHERE Name LIKE ?", [`%${Name}%`], (err, products) => {
+  db.all("SELECT * FROM Products WHERE Name LIKE ?", [`%${Name}%`], (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json(products);
+    res.json(rows);
   });
 });
-
-router.get("/category", (req, res) => {
-  db.all("SELECT * FROM Category", (err, categories) => {
+router.get("/product/:Id", (req, res) => {
+  const Id = req.params.Id;
+  db.all("SELECT * FROM Products WHERE Id = ?", [Id], (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json(categories);
+    res.json(rows);
+  });
+});
+router.get("/category", (req, res) => {
+  db.all("SELECT * FROM Category", (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
   });
 });
 
 router.get("/brand", (req, res) => {
-  db.all("SELECT * FROM Brand", (err, categories) => {
+  db.all("SELECT * FROM Brand", (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json(categories);
+    res.json(rows);
   });
 });
 
