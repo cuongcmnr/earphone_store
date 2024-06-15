@@ -119,8 +119,8 @@ router.get('/products', isAdmin, (req, res) => {
 });
 
 router.post('/products', isAdmin, (req, res) => {
-    const { Name, ImageUrl, CategoryId, BrandId, Price } = req.body;
-    db.run("INSERT INTO Products (Name, ImageUrl, CategoryId, BrandId, Price) VALUES (?, ?, ?, ?)", [Name, ImageUrl, CategoryId, BrandId, Price], function(err) {
+    const { Name, ImageUrl, CategoryId, BrandId, Description, Price } = req.body;
+    db.run("INSERT INTO Products (Name, ImageUrl, CategoryId, BrandId, Description, Price) VALUES (?, ?, ?, ?)", [Name, ImageUrl, CategoryId, BrandId, Description, Price], function(err) {
       if (err) {
         return res.status(500).send(err.message);
       }
@@ -129,8 +129,8 @@ router.post('/products', isAdmin, (req, res) => {
 });
 
 router.put('/products/:Id', isAdmin, (req, res) => {
-    const { Name, ImageUrl, CategoryId, BrandId, Price } = req.body;
-    db.run("UPDATE Products SET Name = ?, ImageUrl = ?, CategoryId = ?, BrandId = ?, Price = ? WHERE Id = ?", [Name, ImageUrl, CategoryId, BrandId, Price, req.params.Id], function(err) {
+    const { Name, ImageUrl, CategoryId, BrandId, Description, Price } = req.body;
+    db.run("UPDATE Products SET Name = ?, ImageUrl = ?, CategoryId = ?, BrandId = ?, Description = ?, Price = ? WHERE Id = ?", [Name, ImageUrl, CategoryId, BrandId, Description, Price, req.params.Id], function(err) {
       if (err) {
         return res.status(500).send(err.message);
       }
@@ -173,7 +173,15 @@ router.get('/users', isAdmin, (req, res) => {
       res.send(rows);
     });
 });
-
+router.put('/users/:Id', isAdmin, (req, res) => {
+  const { Name, Email, Password, Role } = req.body;
+  db.run("UPDATE Products SET Name = ?, Email = ?, Password = ?, Role = ? WHERE Id = ?", [Name, Email, Password, Role, req.params.Id], function(err) {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    res.send({ rowsAffected: this.changes });
+  });
+});
 router.delete('/users/:Id', isAdmin, (req, res) => {
     db.run("DELETE FROM Users WHERE Id = ?", [req.params.Id], function(err) {
       if (err) {
@@ -182,5 +190,20 @@ router.delete('/users/:Id', isAdmin, (req, res) => {
       res.send({ rowsAffected: this.changes });
     });
 });
-
+router.get('/contacts',isAdmin, (req, res) => {
+  db.all("SELECT * FROM Contact", [], (err, rows) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    res.send(rows);
+  });
+});
+router.delete('/contacts/:Id', isAdmin, (req, res) => {
+  db.run("DELETE FROM Contact WHERE Id = ?", [req.params.Id], function(err) {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    res.send({ rowsAffected: this.changes });
+  });
+});
 module.exports = router;

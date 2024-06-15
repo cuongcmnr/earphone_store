@@ -38,7 +38,8 @@ db.run(`CREATE TABLE IF NOT EXISTS Products (
   ImageUrl TEXT NOT NULL,
   CategoryId INTEGER NOT NULL,
   BrandId INTEGER NOT NULL,
-  Price TEXT,
+  Description TEXT,
+  Price REAL NOT NULL,
   FOREIGN KEY(CategoryId) REFERENCES Category(Id),
   FOREIGN KEY(BrandId) REFERENCES Brand(Id)
 )`);
@@ -85,5 +86,11 @@ db.run(`CREATE TABLE IF NOT EXISTS Orders (
   Date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(UserId) REFERENCES Users(Id)
 )`);
-
+db.run(`CREATE TABLE IF NOT EXISTS Contact (
+  Id INTEGER PRIMARY KEY AUTOINCREMENT,
+  Cusname TEXT NOT NULL,
+  Email TEXT,
+  Feedback TEXT NOT NULL,
+  Date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+)`);
 module.exports = db;

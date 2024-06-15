@@ -61,5 +61,33 @@ router.delete('/reviews/:Id', isLoggedIn, (req, res) => {
     });
   });
 });
-
+router.post('/contact', (req, res) => {
+  const { Cusname, Email, Feedback } = req.body;
+  db.run("INSERT INTO Contact (Cusname, Email, Feedback) VALUES (?, ?, ?)", [Cusname, Email, Feedback], function(err) {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    res.status(200).send({ contactId: this.lastID });
+  });
+});
+router.put('/user/:Id', isLoggedIn, (req, res) => {
+  const { Email, Password } = req.body;
+  const user = req.session.user;
+  db.get("SELECT UserId FROM Reviews WHERE Id = ?", [req.params.Id], (err, row) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    if (!row || row.UserId !== user.Id) {
+      return res.status(403).send('Forbidden');
+    }
+    else {
+      db.run("UPDATE Reviews SET Email = ?, Password = ? WHERE Id = ?", [Email, Password, req.params.Id], function(err) {
+        if (err) {
+          return res.status(500).send(err.message);
+        }
+        res.status(200).send({ message: "Info updated" });
+      })
+    }
+  })
+});
 module.exports = router;
