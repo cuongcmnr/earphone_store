@@ -7,7 +7,7 @@
     flex-direction: column;
   }
   .menu .menuTitle {
-    font-family: FuturaMedium;
+    font-family: cursive;
     font-size: 60px;
   }
   
@@ -44,15 +44,12 @@
     background-size: cover;
   }
   
-  .menuItem h1{
-    font-family: FuturaMedium;
-    margin-left: 20px;
-  }
-  .menuItem button {
+  .menuItem h1,
+  .menuItem p {
     margin-left: 20px;
   }
   
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1300px) {
     .menuList {
       grid-template-columns: 1fr 1fr;
     }

@@ -6,14 +6,14 @@ import '../styles/Menu.css'
 function Menu() {
   return (
     <div className='menu'>
-      <h1 className='menuTitle'>Our Product</h1>
+      <h1 className='menuTitle'>Our menu</h1>
       <div children='menuList'>
         {MenuList.map((menuItem, key)=>{
             return <MenuItem
             key={key}
             image={menuItem.image}
             name={menuItem.name}
-            link={menuItem.link}
+            price={menuItem.price}
             />
         })}
 
