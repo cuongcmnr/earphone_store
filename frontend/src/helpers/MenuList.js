@@ -1,39 +1,22 @@
-import Pepperoni from "../assets/d.jpg";
-import Margherita from "../assets/d.jpg";
-import PedroTechSpecial from "../assets/d.jpg";
-import Vegan from "../assets/d.jpg";
-import Pineapple from "../assets/d.jpg";
-import Expensive from "../assets/d.jpg";
+import { Link } from "react-router-dom";
+import Collection2022 from "../assets/d.jpg";
+import Collection2023 from "../assets/d23.jpg";
+import Collection2024 from "../assets/d24.jpg";
 
 export const MenuList = [
   {
-    name: "Pepperoni Pizza",
-    image: Pepperoni,
-    price: 15.99,
+    name: "2022 Collection",
+    image: Collection2022,
+    link: "2022 Collection.js",
   },
   {
-    name: "Margherita Pizza",
-    image: Margherita,
-    price: 11.99,
+    name: "2023 Collection",
+    image: Collection2023,
+    link: "2023 Collection.js",
   },
   {
-    name: "PedroTech Special Pizza",
-    image: PedroTechSpecial,
-    price: 256.53,
-  },
-  {
-    name: "Vegan Pizza",
-    image: Vegan,
-    price: 17.99,
-  },
-  {
-    name: "Pineapple Pizza",
-    image: Pineapple,
-    price: 4.99,
-  },
-  {
-    name: "Very Expensive Pizza",
-    image: Expensive,
-    price: 1997.99,
+    name: "2024 Collection",
+    image: Collection2024,
+    link: "2024 Collection.js",
   },
 ];
