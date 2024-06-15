@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.js";
 import Home from "./pages/Home.js";
 import Menu from "./pages/Menu.js"
 import Admin from "./pages/Admin.js"
-
+import Login from "./pages/Login.js"
 import Contact from './pages/Contact.js';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -20,6 +20,7 @@ function App() {
           <Route path="/admin" exact element={<Admin/>}/>
           
           <Route path="/contact" exact element={<Contact/>}/>
+          <Route path="/login" exact element={<Login/>}/>
         </Routes>
         
       </Router>
