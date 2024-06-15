@@ -6,8 +6,8 @@ module.exports.isLoggedIn = (req, res, next) => {
   next();
 }
 module.exports.registerValidation = (data) => {
-  if (!data.Name || data.Name.length < 6) {
-    return { error: "Name must be at least 6 characters long." };
+  if (!data.Name || data.Name.length < 2) {
+    return { error: "Name must be at least 2 characters long." };
   }
   if (!data.Email || !data.Email.includes("@")) {
     return { error: "Email is invalid." };
