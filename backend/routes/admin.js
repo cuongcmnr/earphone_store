@@ -119,18 +119,18 @@ router.get('/products', isAdmin, (req, res) => {
 });
 
 router.post('/products', isAdmin, (req, res) => {
-    const { Name, ImageUrl, Price, CategoryId } = req.body;
-    db.run("INSERT INTO Products (Name, ImageUrl, CategoryId, Price) VALUES (?, ?, ?)", [Name, ImageUrl, CategoryId, Price], function(err) {
+    const { Name, ImageUrl, CategoryId, BrandId, Price } = req.body;
+    db.run("INSERT INTO Products (Name, ImageUrl, CategoryId, BrandId, Price) VALUES (?, ?, ?, ?)", [Name, ImageUrl, CategoryId, BrandId, Price], function(err) {
       if (err) {
         return res.status(500).send(err.message);
       }
       res.status(200).send({ productId: this.lastID });
     });
 });
-  
+
 router.put('/products/:Id', isAdmin, (req, res) => {
-    const { Name, ImageUrl, Price, CategoryId } = req.body;
-    db.run("UPDATE Products SET Name = ?, ImageUrl = ?, CategoryId, Price = ? WHERE Id = ?", [Name, ImageUrl, Price, CategoryId, req.params.Id], function(err) {
+    const { Name, ImageUrl, CategoryId, BrandId, Price } = req.body;
+    db.run("UPDATE Products SET Name = ?, ImageUrl = ?, CategoryId = ?, BrandId = ?, Price = ? WHERE Id = ?", [Name, ImageUrl, CategoryId, BrandId, Price, req.params.Id], function(err) {
       if (err) {
         return res.status(500).send(err.message);
       }
