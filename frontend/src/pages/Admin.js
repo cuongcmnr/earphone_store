@@ -7,6 +7,10 @@ function Admin() {
   const [views, setViews] = useState([]);
 
   useEffect(() => {
+    fetch('http://127.0.0.1:5002/api/admin/views/Admin', { 
+      method: 'POST',
+    })
+      .catch(error => console.error('Error updating views:', error));
     fetch('http://127.0.0.1:5002/api/admin/products', { 
       method: 'GET',
       headers: {'Cookie': `connect.sid=${session}`}
@@ -14,6 +18,13 @@ function Admin() {
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching products:', error));
+    fetch('http://127.0.0.1:5002/api/admin/views', { 
+        method: 'GET',
+        headers: {'Cookie': `connect.sid=${session}`}
+      })
+        .then(response => response.json())
+        .then(data => setViews(data))
+        .catch(error => console.error('Error fetching views:', error));
   }, []);
 
   const handleDelete = (id) => {
