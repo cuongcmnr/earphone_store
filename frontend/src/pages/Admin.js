@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+
 function Admin() {
   const session = Cookies.get('session');
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState(null);
+  const [views, setViews] = useState([]);
+
   useEffect(() => {
-    if (user && user.Role === 1) {
-      fetch('http://127.0.0.1:5002/api/admin/products', { 
-        method: 'GET',
-        headers: {'Session': session}
+    fetch('http://127.0.0.1:5002/api/admin/products', { 
+      method: 'GET',
+      headers: {'Session': session}
     })
-        .then(response => response.json())
-        .then(data => setProducts(data))
-        .catch(error => console.error('Error fetching products:', error));
-    } else {
-      alert('You are not authorized to view this page');
-    }
-  }, [user]);
+      .then(response => response.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error fetching products:', error));
+
+    fetch('http://127.0.0.1:5002/api/admin/views', { 
+      method: 'GET',
+      headers: {'Session': session}
+    })
+      .then(response => response.json())
+      .then(data => setViews(data))
+      .catch(error => console.error('Error fetching views:', error));
+  }, []);
 
   const handleDelete = (id) => {
     fetch(`http://127.0.0.1:5002/api/admin/products/${id}`, { 
@@ -31,12 +37,20 @@ function Admin() {
 
   return (
     <div>
-      <h1>Admin</h1>
+      <h1>Admin Portal</h1>
       <ul>
         {products.map(product => (
           <li key={product.Id}>
             {product.Name}
             <button onClick={() => handleDelete(product.Id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <h2>Views</h2>
+      <ul>
+        {views.map(view => (
+          <li key={view.Id}>
+            Page: {view.Page}, Views: {view.Count}
           </li>
         ))}
       </ul>
