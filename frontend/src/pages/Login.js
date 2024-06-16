@@ -9,7 +9,10 @@ const Login = () => {
         const session = cookies.session;
         if (session) {
         setIsLoggedIn(true);
-        // Fetch user data based on session
+        fetch('http://127.0.0.1:5002/api/admin/views/Login', { 
+            method: 'POST',
+          })
+            .catch(error => console.error('Error updating views:', error));
         const fetchUserData = async () => {
             const response = await fetch('http://127.0.0.1:5002/api/user/whoami', {
                 headers: {
