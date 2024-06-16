@@ -10,6 +10,19 @@
   font-size: 16px; /* Set a base font size for the navbar */
 }
 
+.navbar .contactSide{
+  flex: 0; 
+  display: flex;
+  align-items: center;
+  padding-right: 20px; 
+}
+.navbar .menuSide{
+  flex: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+}
+
 .navbar .leftSide {
   flex: 20%;
   display: flex;
@@ -28,7 +41,7 @@
 }
 
 .navbar .rightSide {
-  flex: 30%;
+  flex: 0%;
   display: flex;
   align-items: center;
   padding-left: 0px;
@@ -41,10 +54,9 @@
   font: Futura;
   height: 100%;
   display: flex;
-  padding-left: 450px;
   align-items: center;
-  justify-content: left; /* position middle */
-  color: black; /* Set text color to black */
+  justify-content: center; 
+  color: black;
 }
 
 
@@ -95,19 +107,33 @@
   font-size: inherit; /* Inherit font size from navbar */
 }
 
-@media only screen and (max-width: 900px) {
-  .navbar .rightSide a {
-    width: 70px;
-    font-size: inherit; /* Inherit font size from navbar */
+
+@media only screen and (max-width: 600px) {
+  .navbar .middleSide  {
+    justify-content: center;
   }
-  .navbar .leftSide {
-    padding-left: 50px;
+  .navbar .menuSide {
+    display: none;
+  }
+  .navbar .contactSide{
+    display: none;
   }
 }
 
-@media only screen and (max-width: 600px) {
-  .navbar .rightSide a {
-    display: none;
+
+
+@media only screen and (max-width: 800px) {
+  .navbar .middleSide  {
+    justify-content: center;
+  }
+  .navbar .leftSide {
+    padding-left: 30px;
+  }
+}
+
+/*@media only screen and (max-width: 1000px) {
+  .navbar .middleSide a {
+    justify-content: center;
   }
 
   .navbar .rightSide {
@@ -118,17 +144,7 @@
   .navbar .rightSide button {
     display: inherit;
   }
-}
-
-@media only screen and (min-width: 600px) {
-  .navbar .rightSide button {
-    display: none;
-  }
-
-  .hiddenLinks {
-    display: none;
-  }
-}
+}*/
 
 /* New styles for full-screen menu */
 .menuOverlay {
