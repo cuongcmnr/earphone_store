@@ -112,13 +112,13 @@ form button {
   font-family: FuturaMedium; /* Apply FuturaMedium font */
 }
 
-@media only screen and(max-width: 801px) and (max-width: 1200px) {
+@media only screen and (min-width: 801px) and (max-width: 1200px) {
   .about .aboutBottom h1 {
     font-size: 50px; 
   }
 
   .about .aboutBottom p{
-    padding-block: 0px;
+    padding-top: 0px;
     font-size: 15px; 
   }
 
@@ -126,7 +126,7 @@ form button {
     font-size: 15px;
   }
   .contact .rightSide h1{
-    font-size: 45px;
+    font-size: 40px;
   }
   
 }
