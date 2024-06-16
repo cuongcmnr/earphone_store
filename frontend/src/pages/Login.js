@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext }  from "react";
 import "../styles/Login.css"
 import Cookies from 'js-cookie';
-import UserContext from './UserContext';
 const Login = () => {
 
     useEffect(() => {
@@ -28,7 +27,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { user, setUser } = useContext(UserContext);
+    const [user, setUser] = useState('');
     const toggleRegister = () => {
         setIsRegistering(!isRegistering);
     };
