@@ -11,7 +11,8 @@
 .aboutBottom p {
   max-width: 1200px;
   text-align: center;
-  font-family: FuturaMedium;
+  font-family: FuturaMedium; /* Apply FuturaMedium font */
+}
 
 .about .aboutBottom h1 {
   font-weight: 400;
@@ -21,7 +22,7 @@
   display: flex;
   justify-content: center;
   transform: translateY(-40px);
-  font-family: FuturaMedium; 
+  font-family: FuturaMedium; /* Apply FuturaMedium font */
 }
 
 .contact {
@@ -111,26 +112,7 @@ form button {
   font-family: FuturaMedium; /* Apply FuturaMedium font */
 }
 
-@media only screen and (max-width: 800px) {
-  .about .aboutBottom h1 {
-    font-size: 40px; 
-  }
-
-  .about .aboutBottom p{
-    padding-top: 0px;
-    font-size: 15px; 
-  }
-
-  .contact {
-    font-size: 10px;
-  }
-  .contact .rightSide h1{
-    font-size: 40px;
-  }
-  
-}
-
-/* @media only screen and (max-width: 1200px) {
+@media only screen and(max-width: 801px) and (max-width: 1200px) {
   .about .aboutBottom h1 {
     font-size: 50px; 
   }
@@ -147,4 +129,25 @@ form button {
     font-size: 45px;
   }
   
-}*/
+}
+
+@media only screen and (max-width: 800px) {
+  .about .aboutBottom h1 {
+    font-size: 30px; 
+  }
+
+  .about .aboutBottom p{
+    padding-top: 0px;
+    font-size: 12px; 
+  }
+
+  .contact {
+    font-size: 10px;
+  }
+  .contact .rightSide h1{
+    font-size: 30px;
+  }
+  
+}
+
+ 
