@@ -1,17 +1,19 @@
-import React, { useEffect, useState, useContext }  from "react";
+import React, { useEffect, useState }  from "react";
 import "../styles/Login.css"
-import Cookies from 'js-cookie';
+import { useCookies } from 'react-cookie';
+
 const Login = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['session']);
 
     useEffect(() => {
-        const session = Cookies.get('session');
+        const session = cookies.session;
         if (session) {
         setIsLoggedIn(true);
         // Fetch user data based on session
         const fetchUserData = async () => {
             const response = await fetch('http://127.0.0.1:5002/api/user/whoami', {
                 headers: {
-                    'Session': session
+                    'Cookie': session
                 }
             });
             if (response.status === 200) {
@@ -27,7 +29,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState('');
+    const [ user, setUser ] = useState('');
     const toggleRegister = () => {
         setIsRegistering(!isRegistering);
     };
@@ -47,7 +49,7 @@ const Login = () => {
         if (response.status === 200) {
             alert("Login successful!");
             const data = await response.json();
-            Cookies.set('session', data.session);
+            setCookie('session', data.session);
             setUser(data.user);
         } else {
             alert("Login failed!");
@@ -77,13 +79,13 @@ const Login = () => {
         const response = await fetch('http://127.0.0.1:5002/api/user/logout', {
             method: 'POST',
             headers: {
-                'Session': Cookies.get('session')
+                'Session': cookies.session
             }
         });
     
         if (response.status === 200) {
             alert("Logout successful!");
-            Cookies.remove('session');
+            removeCookie('session');
             setIsLoggedIn(false);
             setUser(null);
         } else {
