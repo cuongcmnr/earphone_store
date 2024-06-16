@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import BannerVideo from "../assets/video.mp4";
 import "../styles/Home.css";
 
 function Home() {
+  useEffect(() => {
+    fetch('http://127.0.0.1:5002/api/admin/views/Home', { 
+      method: 'POST',
+    })
+      .catch(error => console.error('Error updating views:', error));
+  }, []);
   return (
     <div className="home" >
       <video autoPlay loop muted className="backgroundVideo">
