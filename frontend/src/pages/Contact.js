@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ContactImg from '../assets/d.jpg';
 import '../styles/Contact.css';
@@ -7,7 +7,12 @@ function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-
+  useEffect(() => {
+    fetch('http://127.0.0.1:5002/api/admin/views/Contact', { 
+      method: 'POST',
+    })
+      .catch(error => console.error('Error updating views:', error));
+  }, []);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -68,3 +73,4 @@ function Contact() {
 }
 
 export default Contact;
+
