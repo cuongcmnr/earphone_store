@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 function Admin() {
-  const session = Cookies.get('connect.sid');
+  const session = Cookies.get('session');
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState(null);
   useEffect(() => {
