@@ -47,7 +47,7 @@ router.post("/login", (req, res) => {
     }
     if (hashPassword(req.body.Password) === user.Password) {
       req.session.user = user;
-      res.status(200).send({ user: user });
+      res.status(200).send({ user: user, session: req.sessionID  });
     } else {
       return res.status(400).send("Email or Password wrong");
     }
